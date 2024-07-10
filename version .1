@@ -1,18 +1,9 @@
 local module = {}
 
-local collisions={}
-function collisions.calculateRotatedBoundingBox(c,d)
-    local f, g, h, i, j, k, l, m, n = d:GetComponents()
-    local o = math.abs(f * c.X + g * c.Y + h * c.Z)
-    local p = math.abs(i * c.X + j * c.Y + k * c.Z)
-    local q = math.abs(l * c.X + m * c.Y + n * c.Z)
-    local r = d.p; local s = Vector3.new(o, p, q)
-    return r, s
-end; function collisions.CheckCollide(v,w,x,y)
+function CheckCollide(v,w,x,y)
     local z = w / 2; local A = y / 2; local B = v - z; local C = v + z; local D = x - A; local E = x + A; if C.x < D.x or B.x > E.x then return false end; if C.y < D.y or B.y > E.y then return false end; if C.z < D.z or B.z > E.z then return false end; return true
 end
-local p1 = PartService.createPart("clay_orange",Vector3.new(345,69,346))
-local p2 = PartService.createPart("stone",Vector3.new(345.5,70,344))
+
 
 local function getBoundingBox(obj)
     if tostring(obj):match("table: 0x") then
@@ -37,7 +28,7 @@ function module.raycast(origin:Vector3,direction:Vector3,filterIncludes)
 
         for i,v in filterIncludes do
             local size,cframe = getBoundingBox(v)   
-            local collides = collisions.CheckCollide(cframe,size,CFrame.new(origin:lerp(endpoint,alpha)),Vector3.zero)
+            local collides = CheckCollide(cframe,size,CFrame.new(origin:lerp(endpoint,alpha)),Vector3.zero)
             if collides then
                 v:setTransparency(.5)
                 result = {}
