@@ -27,7 +27,6 @@ function module.raycast(origin:Vector3,direction:Vector3,filterIncludes)
             local size,cframe = getBoundingBox(v)   
             local collides = CheckCollide(cframe,size,CFrame.new(origin:lerp(endpoint,alpha)),Vector3.zero)
             if collides then
-                v:setTransparency(.5)
                 result = {}
                 result.Instance = v
                 result.Position = origin:lerp(endpoint,alpha)
